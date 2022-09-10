@@ -21,10 +21,14 @@ int main(){
     servaddr.sin_family=AF_INET;
     servaddr.sin_port=htons(SERVER_PORT);
     inet_aton(servip.c_str(),&servaddr.sin_addr);
-    sendto(clientfd,buff,strlen(buff),0,(struct sockaddr*)&servaddr,sizeof(sockaddr_in));
-    socklen_t len;
-    recvfrom(clientfd,buff,sizeof(buff),0,(struct sockaddr*)&servaddr,&len);
-    cout<<buff<<endl;
+    int i=0;
+    while(i<100){
+        i++;
+        sendto(clientfd,buff,strlen(buff),0,(struct sockaddr*)&servaddr,sizeof(sockaddr_in));
+        socklen_t len;
+        recvfrom(clientfd,buff,sizeof(buff),0,(struct sockaddr*)&servaddr,&len);
+        cout<<buff<<endl;
+    }
     close(clientfd);
     return 0;
 }
